@@ -1,0 +1,9 @@
+entry-api/node_modules
+microservice/node_modules
+
+shared/node_modules
+
+.vscode
+.git
+.gitignore
+dev.env

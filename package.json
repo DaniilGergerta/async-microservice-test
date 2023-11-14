@@ -1,0 +1,12 @@
+{
+  "name": "microservice-test-async",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "docker compose -f docker-compose.dev.yml up -d --build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

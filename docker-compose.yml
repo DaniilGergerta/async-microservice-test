@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    env_file:
+      - prod.env
+    build:
+      context: ./rabbitmq
+      dockerfile: Dockerfile
+    restart: unless-stopped
+  entry-api:
+    user: root
+    working_dir: /entry-api
+    ports:
+      - 4000:4000
+    depends_on:
+      - rabbitmq
+    env_file:
+      - prod.env
+    build:
+      context: .
+      dockerfile: DockerFileApi
+    restart: unless-stopped
+  microservice:
+    user: root
+    working_dir: /microservice
+    depends_on:
+      - rabbitmq
+    env_file:
+      - prod.env
+    build:
+      context: .
+      dockerfile: DockerFileService
+    restart: unless-stopped

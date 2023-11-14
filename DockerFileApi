@@ -1,0 +1,23 @@
+FROM node:alpine
+
+RUN apk add g++ make py3-pip
+
+RUN npm i -g npm
+
+COPY --chown=node:node entry-api/package.json entry-api/
+COPY --chown=node:node shared/package.json shared/
+
+COPY --chown=node:node entry-api/ entry-api/
+COPY --chown=node:node shared/ shared/
+
+WORKDIR /shared
+RUN npm install --omit=optional
+
+WORKDIR /entry-api
+RUN npm install --omit=optional
+
+USER root
+
+RUN npm run build
+
+ENTRYPOINT ["npm", "run", "start"]
